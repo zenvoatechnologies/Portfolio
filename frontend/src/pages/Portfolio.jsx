@@ -11,7 +11,7 @@ export default function Portfolio() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    axios.get(import.meta.env.VITE_API_URL + "/api/projects")
+    axios.get(import.meta.env.VITE_API_URL.replace(/\/$/, "") + "/api/projects")
       .then(res => {
         setProjects(res.data)
         setLoading(false)

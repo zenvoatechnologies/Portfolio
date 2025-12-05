@@ -9,7 +9,7 @@ export default function PortfolioPreview() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get(import.meta.env.VITE_API_URL + "/api/projects")
+        axios.get(import.meta.env.VITE_API_URL.replace(/\/$/, "") + "/api/projects")
             .then(res => {
                 // Take top 3 projects
                 setProjects(res.data.slice(0, 3));

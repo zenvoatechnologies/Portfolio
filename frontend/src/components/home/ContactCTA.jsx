@@ -11,7 +11,7 @@ export default function ContactCTA() {
         e.preventDefault()
         setStatus("submitting")
         try {
-            await axios.post(import.meta.env.VITE_API_URL + "/api/leads", form)
+            await axios.post(import.meta.env.VITE_API_URL.replace(/\/$/, "") + "/api/leads", form)
             setStatus("success")
             setForm({ name: "", email: "", phone: "", message: "" }) // Clear form
         } catch (err) {

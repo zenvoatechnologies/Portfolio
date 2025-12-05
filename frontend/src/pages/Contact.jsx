@@ -13,7 +13,7 @@ export default function Contact() {
     e.preventDefault()
     setStatus("submitting")
     try {
-      await axios.post(import.meta.env.VITE_API_URL + "/api/leads", form)
+      await axios.post(import.meta.env.VITE_API_URL.replace(/\/$/, "") + "/api/leads", form)
       setStatus("success")
     } catch (err) {
       console.error(err)

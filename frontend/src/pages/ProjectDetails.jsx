@@ -12,7 +12,7 @@ export default function ProjectDetails() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    axios.get(import.meta.env.VITE_API_URL + "/api/projects/" + slug)
+    axios.get(import.meta.env.VITE_API_URL.replace(/\/$/, "") + "/api/projects/" + slug)
       .then(res => {
         setProject(res.data)
         setLoading(false)
