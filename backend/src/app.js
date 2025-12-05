@@ -9,7 +9,26 @@ const leadsRouter = require('./routes/leads');
 const app = express();
 
 app.use(express.json({ limit: '10mb' }));
-app.use(cors());
+
+// CORS Configuration
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://portfolio-frontend-alpha-gules.vercel.app', // Deployed Frontend
+  'https://zenvoatechnologies.com' // Future domain
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+}));
+
 app.use(morgan('tiny'));
 
 app.get('/', (req, res) => res.send('Zenvoa Backend is running'));
