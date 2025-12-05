@@ -10,7 +10,10 @@ const PORT = process.env.PORT || 5000;
     const server = http.createServer(app);
     server.listen(PORT, () => console.log(`Backend running on port ${PORT}`));
   } catch (err) {
-    console.error('Failed to start server', err);
-    process.exit(1);
+    console.warn('MongoDB connection failed. Starting in MOCK MODE.');
+    console.error(err.message);
+    process.env.MOCK_MODE = 'true';
+    const server = http.createServer(app);
+    server.listen(PORT, () => console.log(`Backend running in MOCK MODE on port ${PORT}`));
   }
 })();

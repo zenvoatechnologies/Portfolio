@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://zenvoatechnologies.com/sitemap.xml

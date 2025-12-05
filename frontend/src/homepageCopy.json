@@ -1,0 +1,112 @@
+{
+  "hero": {
+    "headline": "We build future-ready digital products that scale.",
+    "subheadline": "Web • Mobile • AI • Branding — Delivered with speed, quality & lifetime maintenance.",
+    "ctaPrimary": "Get a Free Quote",
+    "ctaSecondary": "View Portfolio",
+    "badges": [
+      "24/7 Support",
+      "Lifetime Maintenance",
+      "Trusted Stack"
+    ]
+  },
+  "whyChooseUs": {
+    "title": "Why Zenvoa?",
+    "subtitle": "Excellence in Every Line of Code",
+    "guarantee": "Response time under 30 minutes, guaranteed.",
+    "items": [
+      {
+        "title": "Fast Delivery",
+        "desc": "Rapid turnaround without compromising on production-grade quality."
+      },
+      {
+        "title": "Lifetime Maintenance",
+        "desc": "We don't just build; we maintain and optimize your product forever."
+      },
+      {
+        "title": "Dedicated Manager",
+        "desc": "A single point of contact ensuring your vision is executed perfectly."
+      },
+      {
+        "title": "Transparent Pricing",
+        "desc": "Clear milestones and no hidden costs. You pay for value."
+      }
+    ]
+  },
+  "services": [
+    {
+      "title": "Web Development",
+      "desc": "High-performance websites.",
+      "link": "#",
+      "microFeatures": ["Next.js", "MERN Stack"]
+    },
+    {
+      "title": "Mobile Apps",
+      "desc": "Native experience on all devices.",
+      "link": "#",
+      "microFeatures": ["iOS & Android", "Flutter"]
+    },
+    {
+      "title": "Custom Software",
+      "desc": "Tailored enterprise solutions.",
+      "link": "#",
+      "microFeatures": ["SaaS", "Automation"]
+    },
+    {
+      "title": "Branding & UI/UX",
+      "desc": "Design that converts.",
+      "link": "#",
+      "microFeatures": ["Identity", "Prototyping"]
+    },
+    {
+      "title": "AI Integrations",
+      "desc": "Smart workflows & chatbots.",
+      "link": "#",
+      "microFeatures": ["OpenAI", "LangChain"]
+    },
+    {
+      "title": "Cloud & DevOps",
+      "desc": "Scalable infrastructure.",
+      "link": "#",
+      "microFeatures": ["AWS", "Google Cloud"]
+    }
+  ],
+  "process": {
+    "title": "How Our Process Works",
+    "steps": [
+      { "title": "Contact", "desc": "Send us your requirements.", "cta": "Get Started" },
+      { "title": "Discovery Call", "desc": "We discuss goals & feasibility.", "cta": "Book Call" },
+      { "title": "Proposal", "desc": "Budget & timeline confirmation.", "cta": "Review Plan" },
+      { "title": "Wireframes", "desc": "Visualizing the user journey.", "cta": "Approve UI" },
+      { "title": "Development", "desc": "Agile coding sprints.", "cta": "Track Progress" },
+      { "title": "QA Testing", "desc": "Bug squashing & polish.", "cta": "Verify" },
+      { "title": "Deployment", "desc": "Going live to the world.", "cta": "Launch" },
+      { "title": "Training", "desc": "Handover & documentation.", "cta": "Learn" },
+      { "title": "Lifetime Support", "desc": "Updates & maintenance.", "cta": "Relax" }
+    ]
+  },
+  "testimonials": [
+    {
+      "name": "Alex Johnson",
+      "role": "CTO, NextGen",
+      "quote": "Zenvoa delivered our MVP in record time. The code quality is exceptional."
+    },
+    {
+      "name": "Maria Rodriguez",
+      "role": "Founder, Luxe",
+      "quote": "The design team perfectly captured our brand's premium aesthetic."
+    },
+    {
+      "name": "David Kim",
+      "role": "Director, EduTech",
+      "quote": "Their AI integration automated our entire customer support flow."
+    }
+  ],
+  "techStack": {
+    "title": "Trusted stack for scalable products"
+  },
+  "projectCTA": {
+    "headline": "Bring your vision to life, with just one click.",
+    "cta": "Start Your Project"
+  }
+}

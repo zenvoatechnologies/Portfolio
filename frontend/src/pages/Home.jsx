@@ -1,29 +1,35 @@
-import Hero from "../components/Hero"
-import ProjectCard from "../components/ProjectCard"
-import axios from "axios"
-import { useEffect, useState } from "react"
+import React from "react";
+import Hero from "../components/Hero";
+import TechStack from "../components/home/TechStack";
+import ServicesSection from "../components/home/ServicesSection";
+import WhyChooseUs from "../components/home/WhyChooseUs";
+import ProcessFlow from "../components/home/ProcessFlow";
+import PortfolioPreview from "../components/home/PortfolioPreview";
+import Testimonials from "../components/home/Testimonials";
+import ProjectCTA from "../components/home/ProjectCTA";
+import Ballpit from "../components/Ballpit";
+import SEO from "../components/SEO";
 
-export default function Home() {
-  const [projects, setProjects] = useState([])
-
-  useEffect(() => {
-    axios.get(import.meta.env.VITE_API_URL + "/api/projects")
-      .then(res => setProjects(res.data))
-      .catch(() => setProjects([]))
-  }, [])
-
+function Home() {
   return (
-    <>
-      <Hero />
-      <section className="container mx-auto px-6 py-12">
-        <h2 className="text-3xl font-bold">Our Work</h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-          {projects.map(p => (
-            <ProjectCard key={p._id} project={p} />
-          ))}
-        </div>
-      </section>
-    </>
-  )
+    <div className="bg-[#060712] relative">
+      <SEO
+        title="Home"
+        description="Zenvoa Technologies builds premium web applications and scalable digital solutions to transform your business."
+      />
+      <Ballpit />
+      <div className="relative z-10">
+        <Hero />
+        <TechStack />
+        <WhyChooseUs />
+        <ServicesSection />
+        <ProcessFlow />
+        <PortfolioPreview />
+        <Testimonials />
+        <ProjectCTA />
+      </div>
+    </div>
+  );
 }
+
+export default Home;
