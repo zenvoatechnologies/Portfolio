@@ -11,6 +11,12 @@ export default function ProjectCard({ project, index = 0 }) {
       className="group relative bg-white/5 backdrop-blur-md rounded-2xl overflow-hidden border border-white/10 hover:border-indigo-500/50 hover:bg-white/10 transition-all duration-300 flex flex-col h-full shadow-lg"
     >
       <div className="relative h-48 overflow-hidden bg-black/20">
+        {project.status === "in-progress" && (
+          <div className="absolute top-3 right-3 z-20 bg-amber-500/10 backdrop-blur-md border border-amber-500/20 text-amber-400 text-xs font-bold px-3 py-1 rounded-full flex items-center shadow-lg">
+            <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse mr-2"></div>
+            In Progress
+          </div>
+        )}
         {project.images && project.images.length > 0 ? (
           <img
             src={project.images[0]}

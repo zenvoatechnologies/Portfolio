@@ -22,18 +22,21 @@ export default function Portfolio() {
         // Mock data fallback if API fails
         setProjects([
           {
-            _id: "1",
-            title: "Example Project 1",
-            description: "This is a placeholder for a project description while the backend is in mock mode.",
-            techStack: ["React", "Node", "Tailwind"],
-            slug: "project-1"
+            _id: "turf-app",
+            title: "Turf Booking App",
+            description: "A seamless platform for booking sports venues. Real-time slot availability, instant bookings, and owner dashboards.",
+            techStack: ["React Native", "Node.js", "MongoDB"],
+            images: ["https://images.unsplash.com/photo-1529900748604-07564a03e7a6?q=80&w=2070&auto=format&fit=crop"],
+            slug: "turf-booking-app",
+            status: "in-progress"
           },
           {
-            _id: "2",
-            title: "Example Project 2",
-            description: "Another placeholder to demonstrate the layout.",
-            techStack: ["Next.js", "MongoDB"],
-            slug: "project-2"
+            _id: "portfolio",
+            title: "Zenvoa Portfolio",
+            description: "Our own high-performance portfolio website featuring glassmorphism design and 3D animations.",
+            techStack: ["React", "Vite", "Tailwind", "Framer Motion"],
+            images: ["https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop"],
+            slug: "zenvoa-portfolio"
           }
         ])
       })
