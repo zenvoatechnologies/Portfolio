@@ -13,8 +13,10 @@ app.use(express.json({ limit: '10mb' }));
 // CORS Configuration
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://portfolio-frontend-alpha-gules.vercel.app', // Deployed Frontend
-  'https://zenvoatechnologies.com' // Future domain
+  'https://zenvoa-technologies.onrender.com', // <--- ADD THIS LINE (Your Render Frontend)
+  'https://zenvoa-portfolio.onrender.com',    // <--- Add this too just in case (based on previous steps)
+  'https://portfolio-frontend-alpha-gules.vercel.app',
+  'https://zenvoatechnologies.com' 
 ];
 
 app.use(cors({
