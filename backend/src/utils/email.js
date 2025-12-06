@@ -7,7 +7,7 @@ exports.sendLeadEmail = async (lead) => {
     const data = await resend.emails.send({
       // ✅ TRICK: Use "Name <email>" format. 
       // The email MUST be 'onboarding@resend.dev' for the free tier without a domain.
-      from: 'Zenvoa Technologies <onboarding@resend.dev>',
+      from: 'Zenvoa Technologies <zenvoatechnologies@gmail.com>',
       
       // ✅ TRICK: Set 'reply_to' to the visitor's email.
       // When you click "Reply" in your inbox, it will go to the visitor, not Resend.
