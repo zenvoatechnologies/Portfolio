@@ -1,33 +1,25 @@
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: process.env.SMTP_PORT || 587,
-  secure: false,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS
-  }
-});
-
-// verify transporter on startup (non-blocking)
-transporter.verify().then(() => {
-  console.log('SMTP transporter ready');
-}).catch(err => {
-  console.warn('SMTP transporter not ready:', err.message);
-});
+// Initialize Resend with API Key
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 exports.sendLeadEmail = async (lead) => {
-  const html = `<h2>New lead from Zenvoa Technologies</h2>
-    <p><strong>Name:</strong> ${lead.name || '—'}</p>
-    <p><strong>Email:</strong> ${lead.email || '—'}</p>
-    <p><strong>Phone:</strong> ${lead.phone || '—'}</p>
-    <p><strong>Message:</strong> ${lead.message || '—'}</p>`;
-
-  await transporter.sendMail({
-    from: process.env.SMTP_FROM,
-    to: process.env.NOTIFY_EMAIL,
-    subject: `New lead — ${lead.name || 'No name'}`,
-    html
-  });
+  try {
+    const data = await resend.emails.send({
+      // Use the default testing domain if you haven't verified yours yet
+      from: 'onboarding@resend.dev', 
+      to: process.env.NOTIFY_EMAIL, // Make sure this is correct!
+      subject: `New Lead: ${lead.name || 'Visitor'}`,
+      html: `
+        <h2>New Contact from Portfolio</h2>
+        <p><strong>Name:</strong> ${lead.name}</p>
+        <p><strong>Email:</strong> ${lead.email}</p>
+        <p><strong>Phone:</strong> ${lead.phone || 'N/A'}</p>
+        <p><strong>Message:</strong><br/>${lead.message}</p>
+      `
+    });
+    console.log('Email sent successfully:', data);
+  } catch (error) {
+    console.error('Resend Error:', error);
+  }
 };
