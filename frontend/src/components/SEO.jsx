@@ -5,7 +5,7 @@ export default function SEO({
     description,
     keywords,
     image = "/og-image.png",
-    url = "https://zenvoatechnologies.com"
+    url = "https://zenvoa-technologies.onrender.com" // Updated Default URL
 }) {
     const siteTitle = "Zenvoa Technologies | Premium Digital Solutions";
     const defaultDescription = "Zenvoa Technologies builds high-performance web applications, stunning websites, and scalable digital solutions for modern businesses.";
