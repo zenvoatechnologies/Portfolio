@@ -13,10 +13,10 @@ app.use(express.json({ limit: '10mb' }));
 // CORS Configuration (Includes the Vercel URL you provided)
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://zenvoa-technologies.onrender.com', 
-  'https://zenvoa-portfolio.onrender.com',    
+  'https://zenvoa-technologies.onrender.com',
+  'https://zenvoa-portfolio.onrender.com',
   'https://zenvoatechnologies.com',
-  // Your current Vercel Frontend URL(s) will go here dynamically
+  'https://portfolio-frontend-alpha-gules.vercel.app' // Restoring your Vercel Frontend
 ];
 
 app.use(cors({
@@ -34,12 +34,12 @@ app.use(cors({
 }));
 
 // 🚨 FIX 1: Explicitly handle OPTIONS preflight requests for all routes
-app.options('*', cors()); 
+app.options('*', cors());
 
 app.use(morgan('tiny'));
 
 // 🚨 FIX 2: Add a simple GET route for testing API connectivity
-app.get('/api/leads', (req, res) => res.json({ message: 'Leads API is online' })); 
+app.get('/api/leads', (req, res) => res.json({ message: 'Leads API is online' }));
 
 app.get('/', (req, res) => res.send('Zenvoa Backend is running'));
 
