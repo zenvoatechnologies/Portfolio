@@ -10,42 +10,44 @@ const app = express();
 
 app.use(express.json({ limit: '10mb' }));
 
-// CORS Configuration
+// CORS Configuration - CRITICAL: Add your Vercel Frontend URLs
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://portfolio-frontend-alpha-gules.vercel.app',
-  'https://zenvoatechnologies.com',
-  // You MUST add your current Vercel Frontend URL here:
-  'https://zenvoa-technologies.vercel.app',
-  'https://zenvoa-technologies-git-main-zenvoatechnologies-projects.vercel.app', // Vercel Preview URL
-  'https://benvoabackend.vercel.app'
+  'https://zenvoatechnologies.com', // Future domain
+  'https://zenvoa-technologies.vercel.app' // Your Vercel Production Frontend URL
 ];
 
-// CRITICAL: The cors middleware is now responsible for handling preflight (OPTIONS)
-app.use(cors({
+// The CORS middleware function handles all origin checks
+const corsOptions = {
   origin: function (origin, callback) {
-    // Allows requests with no origin (like mobile apps or tools)
     if (!origin) return callback(null, true);
-
+    
+    // 1. Check against explicitly allowed domains
     if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      console.log('CORS rejected origin:', origin);
-      callback(new Error('Not allowed by CORS'));
+      return callback(null, true);
     }
+
+    // 2. Check for Vercel Preview/Branch Deployments 
+    // This allows any subdomain ending with -zenvoatechnologies-projects.vercel.app
+    if (origin.endsWith('-zenvoatechnologies-projects.vercel.app')) {
+      return callback(null, true);
+    }
+    
+    // 3. Reject other origins
+    console.log('CORS rejected origin:', origin);
+    return callback(new Error('Not allowed by CORS'), false);
   },
   credentials: true,
+  // The methods array explicitly tells the browser which methods are allowed, 
+  // resolving the preflight (OPTIONS) check that caused the failure.
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
-}));
+};
+
+app.use(cors(corsOptions));
 
 app.use(morgan('tiny'));
 
 app.get('/', (req, res) => res.send('Zenvoa Backend is running'));
-
-// Fix for 405 Error: Explicitly handle Preflight (OPTIONS) requests
-// We use explicit paths to avoid the "Missing parameter name" crash caused by global wildcards
-app.options('/api/projects', cors());
-app.options('/api/leads', cors());
 
 app.use('/api/projects', projectsRouter);
 app.use('/api/leads', leadsRouter);
