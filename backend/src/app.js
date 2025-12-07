@@ -16,8 +16,9 @@ const allowedOrigins = [
   'https://portfolio-frontend-alpha-gules.vercel.app',
   'https://zenvoatechnologies.com',
   // You MUST add your current Vercel Frontend URL here:
-  'https://zenvoa-technologies.vercel.app', // Example: Replace this with your actual URL
-  'https://benvoabackend.vercel.app' // Vercel's internal routing sometimes checks this too
+  'https://zenvoa-technologies.vercel.app',
+  'https://zenvoa-technologies-git-main-zenvoatechnologies-projects.vercel.app', // Vercel Preview URL
+  'https://benvoabackend.vercel.app'
 ];
 
 // CRITICAL: The cors middleware is now responsible for handling preflight (OPTIONS)
