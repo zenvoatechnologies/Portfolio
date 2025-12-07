@@ -11,8 +11,12 @@ export default function PortfolioPreview() {
     useEffect(() => {
         axios.get(import.meta.env.VITE_API_URL.replace(/\/$/, "") + "/api/projects")
             .then(res => {
-                // Take top 3 projects
-                setProjects(res.data.slice(0, 3));
+                if (Array.isArray(res.data)) {
+                    // Take top 3 projects
+                    setProjects(res.data.slice(0, 3));
+                } else {
+                    console.error("API returned non-array:", res.data);
+                }
                 setLoading(false);
             })
             .catch(err => {

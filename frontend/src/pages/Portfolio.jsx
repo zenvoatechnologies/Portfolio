@@ -13,7 +13,13 @@ export default function Portfolio() {
   useEffect(() => {
     axios.get(import.meta.env.VITE_API_URL.replace(/\/$/, "") + "/api/projects")
       .then(res => {
-        setProjects(res.data)
+        if (Array.isArray(res.data)) {
+          setProjects(res.data)
+        } else {
+          console.error("API returned non-array:", res.data)
+          // Fall through to catch block logic or set empty
+          throw new Error("Invalid API response")
+        }
         setLoading(false)
       })
       .catch(err => {
