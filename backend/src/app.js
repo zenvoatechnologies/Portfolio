@@ -10,40 +10,42 @@ const app = express();
 
 app.use(express.json({ limit: '10mb' }));
 
-// CORS Configuration - CRITICAL: Add your Vercel Frontend URLs
+// CORS Configuration - Add your Vercel Frontend URLs
 const allowedOrigins = [
   'http://localhost:5173',
   'https://zenvoatechnologies.com', // Future domain
-  'https://zenvoa-technologies.vercel.app' // Your Vercel Production Frontend URL
+  'https://zenvoa-technologies-backend.vercel.app', // Backend URL
+  'https://zenvoa-technologies.vercel.app', // Vercel Production Frontend
+  // Pattern for all Vercel Preview/Branch Deployments:
+  /https:\/\/(.*)-zenvoatechnologies-projects\.vercel\.app$/ 
 ];
 
 // The CORS middleware function handles all origin checks
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin) return callback(null, true);
-    
-    // 1. Check against explicitly allowed domains
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      return callback(null, true);
-    }
 
-    // 2. Check for Vercel Preview/Branch Deployments 
-    // This allows any subdomain ending with -zenvoatechnologies-projects.vercel.app
-    if (origin.endsWith('-zenvoatechnologies-projects.vercel.app')) {
-      return callback(null, true);
+    const isAllowed = allowedOrigins.some(allowed => {
+      if (typeof allowed === 'string') {
+        return allowed === origin;
+      }
+      return allowed.test(origin);
+    });
+
+    if (isAllowed) {
+      callback(null, true);
+    } else {
+      console.log('CORS rejected origin:', origin);
+      callback(new Error('Not allowed by CORS'), false);
     }
-    
-    // 3. Reject other origins
-    console.log('CORS rejected origin:', origin);
-    return callback(new Error('Not allowed by CORS'), false);
   },
   credentials: true,
-  // The methods array explicitly tells the browser which methods are allowed, 
-  // resolving the preflight (OPTIONS) check that caused the failure.
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 };
 
-app.use(cors(corsOptions));
+app.use(cors(corsOptions)); // This single line handles the CORS preflight (OPTIONS) check
+
+// 🚨 REMOVE THIS LINE: The problematic app.options('*', cors()) line should be removed.
 
 app.use(morgan('tiny'));
 
