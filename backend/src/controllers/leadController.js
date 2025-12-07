@@ -31,7 +31,14 @@ exports.createLead = async (req, res) => {
 
     res.status(201).json({ message: 'Lead saved', lead });
   } catch (err) {
-    console.error('Lead Save Error:', err);
-    res.status(400).json({ error: err.message });
+    console.error('Lead Configuration/Save Error:', err);
+
+    // Only return 400 if it's actually a Data Validation error (missing fields, wrong format)
+    if (err.name === 'ValidationError') {
+      return res.status(400).json({ error: err.message });
+    }
+
+    // Otherwise, it's a Server/Database connection error -> 500
+    res.status(500).json({ error: 'Internal System Error: ' + err.message });
   }
 };
