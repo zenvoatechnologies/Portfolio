@@ -7,45 +7,45 @@ import Ballpit from "../components/Ballpit"
 import SEO from "../components/SEO"
 
 export default function Portfolio() {
-  const [projects, setProjects] = useState([])
-  const [loading, setLoading] = useState(true)
+  // 🚀 INSTANT LOAD: Default Data
+  const defaultProjects = [
+    {
+      _id: "turf-app",
+      title: "Turf Booking App",
+      description: "🚧 Under Construction — A comprehensive sports venue booking platform built for high performance.",
+      techStack: ["React Native (Expo)", "Android Studio", "Node.js", "MongoDB"],
+      images: ["https://images.unsplash.com/photo-1529900748604-07564a03e7a6?q=80&w=2070&auto=format&fit=crop"],
+      slug: "turf-booking-app",
+      status: "in-progress"
+    },
+    {
+      _id: "portfolio",
+      title: "Zenvoa Portfolio",
+      description: "Our own high-performance portfolio website featuring glassmorphism design and 3D animations.",
+      techStack: ["React", "Vite", "Tailwind", "Framer Motion"],
+      images: ["https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop"],
+      slug: "zenvoa-portfolio"
+    }
+  ]
+
+  const [projects, setProjects] = useState(defaultProjects)
+  const [loading, setLoading] = useState(false) // Start loaded!
 
   useEffect(() => {
+    // Silent background refresh
     axios.get(import.meta.env.VITE_API_URL.replace(/\/$/, "") + "/api/projects")
       .then(res => {
-        if (Array.isArray(res.data)) {
-          setProjects(res.data)
-        } else {
-          console.error("API returned non-array:", res.data)
-          // Fall through to catch block logic or set empty
-          throw new Error("Invalid API response")
-        }
-        setLoading(false)
-      })
-      .catch(err => {
-        console.error(err)
-        setLoading(false)
-        // Mock data fallback if API fails
-        setProjects([
-          {
-            _id: "turf-app",
-            title: "Turf Booking App",
-            description: "🚧 Under Construction — A comprehensive sports venue booking platform built for high performance.",
-            techStack: ["React Native (Expo)", "Android Studio", "Node.js", "MongoDB"],
-            images: ["https://images.unsplash.com/photo-1529900748604-07564a03e7a6?q=80&w=2070&auto=format&fit=crop"],
-            slug: "turf-booking-app",
-            status: "in-progress"
-          },
-          {
-            _id: "portfolio",
-            title: "Zenvoa Portfolio",
-            description: "Our own high-performance portfolio website featuring glassmorphism design and 3D animations.",
-            techStack: ["React", "Vite", "Tailwind", "Framer Motion"],
-            images: ["https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop"],
-            slug: "zenvoa-portfolio"
+        if (Array.isArray(res.data) && res.data.length > 0) {
+          // Merge logic: Keep Turf App if not in API
+          const apiHasTurf = res.data.find(p => p.title === "Turf Booking App")
+          if (!apiHasTurf) {
+            setProjects([defaultProjects[0], ...res.data])
+          } else {
+            setProjects(res.data)
           }
-        ])
+        }
       })
+      .catch(err => console.error("Background fetch failed (using fallback):", err)) // No UI change needed
   }, [])
 
   return (

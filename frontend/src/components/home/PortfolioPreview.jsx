@@ -5,28 +5,8 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
 export default function PortfolioPreview() {
-    const [projects, setProjects] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        axios.get(import.meta.env.VITE_API_URL.replace(/\/$/, "") + "/api/projects")
-            .then(res => {
-                if (Array.isArray(res.data)) {
-                    // Take top 3 projects
-                    setProjects(res.data.slice(0, 3));
-                } else {
-                    console.error("API returned non-array:", res.data);
-                }
-                setLoading(false);
-            })
-            .catch(err => {
-                console.error(err);
-                setLoading(false);
-            });
-    }, []);
-
-    // Manual injection of the requested project
-    const turfProject = {
+    // 🚀 INSTANT LOAD: Initialize with the Manual/Mock Project immediately
+    const manualProject = {
         _id: "turf-app",
         title: "Turf Booking App",
         description: "🚧 Under Construction — A comprehensive sports venue booking platform built for high performance.",
@@ -36,11 +16,27 @@ export default function PortfolioPreview() {
         status: "in-progress"
     };
 
-    // Combine API projects with manual project if not present
-    const displayProjects = [...projects];
-    if (!displayProjects.find(p => p.title === "Turf Booking App")) {
-        displayProjects.push(turfProject);
-    }
+    const [projects, setProjects] = useState([manualProject]); // Start with data!
+    const [loading, setLoading] = useState(false); // No spinner!
+
+    useEffect(() => {
+        // Fetch fresh data in background
+        axios.get(import.meta.env.VITE_API_URL.replace(/\/$/, "") + "/api/projects")
+            .then(res => {
+                if (Array.isArray(res.data) && res.data.length > 0) {
+                    // Check if manual project is already in API response to avoid duplicate
+                    const apiHasTurf = res.data.find(p => p.title === "Turf Booking App");
+                    if (!apiHasTurf) {
+                        setProjects([manualProject, ...res.data].slice(0, 3));
+                    } else {
+                        setProjects(res.data.slice(0, 3));
+                    }
+                }
+            })
+            .catch(err => console.error("Background fetch failed (ignoring):", err));
+    }, []);
+
+    const displayProjects = projects;
 
     return (
         <section className="py-24 bg-transparent border-t border-white/5">
