@@ -41,6 +41,11 @@ app.use(morgan('tiny'));
 
 app.get('/', (req, res) => res.send('Zenvoa Backend is running'));
 
+// Fix for 405 Error: Explicitly handle Preflight (OPTIONS) requests
+// We use explicit paths to avoid the "Missing parameter name" crash caused by global wildcards
+app.options('/api/projects', cors());
+app.options('/api/leads', cors());
+
 app.use('/api/projects', projectsRouter);
 app.use('/api/leads', leadsRouter);
 
