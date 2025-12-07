@@ -12,6 +12,36 @@ export default function ProjectDetails() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    // 1. Check for manual mock projects first (matches the slug in PortfolioPreview)
+    if (slug === "turf-booking-app") {
+      setProject({
+        _id: "turf-app",
+        title: "Turf Booking App",
+        description: "🚧 Under Construction — A comprehensive sports venue booking platform built for high performance using Expo and Android Studio.",
+        techStack: ["React Native (Expo)", "Android Studio", "Node.js", "MongoDB"],
+        images: ["https://images.unsplash.com/photo-1529900748604-07564a03e7a6?q=80&w=2070&auto=format&fit=crop"],
+        createdAt: new Date().toISOString(),
+        challenge: "Managing real-time bookings across multiple venues without conflict was the primary challenge.",
+        solution: "We implemented a WebSocket-based locking system to ensure slot uniqueness.",
+        features: ["Real-time availability", "Secure Payments", "Owner Dashboard"]
+      })
+      setLoading(false)
+      return
+    }
+
+    if (slug === "zenvoa-portfolio") {
+      setProject({
+        _id: "portfolio",
+        title: "Zenvoa Portfolio",
+        description: "Our own high-performance portfolio website featuring glassmorphism design and 3D animations.",
+        techStack: ["React", "Vite", "Tailwind", "Framer Motion"],
+        images: ["https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop"],
+        createdAt: new Date().toISOString()
+      })
+      setLoading(false)
+      return
+    }
+
     axios.get(import.meta.env.VITE_API_URL.replace(/\/$/, "") + "/api/projects/" + slug)
       .then(res => {
         setProject(res.data)
@@ -20,16 +50,6 @@ export default function ProjectDetails() {
       .catch(err => {
         console.error(err)
         setLoading(false)
-        // Fallback for demo if API fails/mock mode
-        if (slug === "turf-app") {
-          setProject({
-            title: "Turf Booking App",
-            description: "A comprehensive solution for booking sports turfs. Features include real-time availability, secure payments, and user profiles. Built with a focus on speed and usability.",
-            createdAt: new Date().toISOString(),
-            techStack: ["React Native", "Node.js", "MongoDB", "Stripe"],
-            images: ["https://placehold.co/600x400/1e1e2e/FFF?text=Turf+App+Screen+1", "https://placehold.co/600x400/1e1e2e/FFF?text=Turf+App+Screen+2"]
-          })
-        }
       })
   }, [slug])
 

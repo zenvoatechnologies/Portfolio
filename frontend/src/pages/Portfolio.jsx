@@ -30,8 +30,8 @@ export default function Portfolio() {
           {
             _id: "turf-app",
             title: "Turf Booking App",
-            description: "A seamless platform for booking sports venues. Real-time slot availability, instant bookings, and owner dashboards.",
-            techStack: ["React Native", "Node.js", "MongoDB"],
+            description: "🚧 Under Construction — A comprehensive sports venue booking platform built for high performance.",
+            techStack: ["React Native (Expo)", "Android Studio", "Node.js", "MongoDB"],
             images: ["https://images.unsplash.com/photo-1529900748604-07564a03e7a6?q=80&w=2070&auto=format&fit=crop"],
             slug: "turf-booking-app",
             status: "in-progress"
